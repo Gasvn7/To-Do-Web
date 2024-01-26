@@ -1,0 +1,48 @@
+:root{
+    --color-1: #0D1B2A;
+    --color-2: #1B263B;
+    --color-3: #415A77;
+    --color-4: #778DA9;
+    --color-5: #E0E1DD;
+}
+
+.Body{
+    background-color: var(--color-2);
+    display: flex;
+    height: 100%;
+}
+/* SIDEBAR */
+.SideBar{
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background-color: var(--color-1);
+    padding: 0 10px;
+    width: 20%;
+    height: 100%;
+}
+.SideBar a{
+    color:var(--color-4);
+    text-decoration: none;
+}
+.SideBar .ContainerSideBar{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+}
+/* Container Gmail */
+.SideBar .Gmail{
+    justify-content: flex-start;
+}
+.SideBar .Gmail img{
+    width: 35px;
+    height: 35px;
+    padding-right: 15px;
+}
+/* Containers Normales */
+.SideBar .ContainerSideBar .InnerContainer{
+    display: flex;
+    align-items: center;
+}
+.SideBar .ContainerSideBar .InnerContainer svg{
+    margin-right: 10px;
+}
