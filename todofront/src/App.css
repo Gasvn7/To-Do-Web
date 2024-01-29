@@ -13,7 +13,7 @@
 }
 /* SIDEBAR */
 .SideBar{
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 4px rgba(173, 111, 111, 0.1);
     background-color: var(--color-1);
     padding: 0 10px;
     width: 20%;
@@ -27,7 +27,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 10px;
+    padding: 20px;
 }
 /* Container Gmail */
 .SideBar .Gmail{
@@ -44,5 +44,45 @@
     align-items: center;
 }
 .SideBar .ContainerSideBar .InnerContainer svg{
+    margin-right: 10px;
+}
+/* CONTAINER DE TASKS */
+.TaskContainer{
+    width: 80%;
+    max-height: 100vh;
+    overflow-y: auto;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: column;
+}
+/* TASKS */
+.TasksContainers{
+    margin: 30px;
+    min-width: 900px;
+    max-width: 900px;
+    min-height: 70px;
+    font-size: 20px;
+    padding: 10px 20px;
+    color: var(--color-5);
+    background-color: var(--color-4);
+    border-radius: 25px;
+    display: flex;
+    justify-content: space-evenly;
+}
+.AddTask{
+    min-height: 40px;
+    align-items: center;
+    justify-content: flex-start;
+}
+.Tasks{
+    flex-direction: column;
+}
+.InnerTasksContainers{
+    display: flex;
+}
+.InnerTasksContainers p{
+    display: flex;
+    align-items: center;
     margin-right: 10px;
 }
