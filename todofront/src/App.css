@@ -59,9 +59,7 @@
 /* TASKS */
 .TasksContainers{
     margin: 30px;
-    min-width: 900px;
-    max-width: 900px;
-    min-height: 70px;
+    width: 80%;
     font-size: 20px;
     padding: 10px 20px;
     color: var(--color-5);
@@ -74,6 +72,8 @@
     min-height: 40px;
     align-items: center;
     justify-content: flex-start;
+    font-size: 22px;
+    text-decoration: none;
 }
 .Tasks{
     flex-direction: column;
@@ -85,4 +85,20 @@
     display: flex;
     align-items: center;
     margin-right: 10px;
+    font-size: 24px;
+}
+.InnerTasksContainers svg{
+    padding-right: 10px;
+}
+.InnerTasksChildrens{
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+.Column{
+    flex-direction: column;
+}
+.Fecha{
+    color: #BA181B;
+    fill: #BA181B;
+    font-weight: 600;
 }
