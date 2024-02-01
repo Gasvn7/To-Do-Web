@@ -1,3 +1,4 @@
+import React from "react";
 import SideBar from "./components/SideBar";
 import Tasks from "./components/Tasks";
 import './App.css'

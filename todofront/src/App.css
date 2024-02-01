@@ -7,14 +7,18 @@
 }
 
 .Body{
-    background-color: var(--color-2);
+    /* FUENTE */
+    font-family: 'Sono', monospace;
+
+    background: #0d1b2a;
+    background: linear-gradient(90deg,#0d1b2a 0%, #1b263b 40%);
+    background: -webkit-linear-gradient(90deg,#0d1b2a 0%, #1b263b 40%);
+    background: -moz-linear-gradient(90deg,#0d1b2a 0%, #1b263b 40%);
     display: flex;
     height: 100%;
 }
 /* SIDEBAR */
 .SideBar{
-    box-shadow: 0 2px 4px rgba(173, 111, 111, 0.1);
-    background-color: var(--color-1);
     padding: 0 10px;
     width: 20%;
     height: 100%;
@@ -63,10 +67,12 @@
     font-size: 20px;
     padding: 10px 20px;
     color: var(--color-5);
-    background-color: var(--color-4);
+    background-color: var(--color-3);
     border-radius: 25px;
     display: flex;
     justify-content: space-evenly;
+    /* Sombra */
+    
 }
 .AddTask{
     min-height: 40px;
@@ -98,7 +104,7 @@
     flex-direction: column;
 }
 .Fecha{
-    color: #BA181B;
-    fill: #BA181B;
+    color: var(--color-4);
+    fill: var(--color-4);
     font-weight: 600;
 }
