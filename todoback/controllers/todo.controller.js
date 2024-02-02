@@ -24,27 +24,32 @@ const tareas = {
   },
   crear: async (req,res)=>{
     try {
-      const {tarea_descripcion, id_usuario} = req.body;
+      const {titulo ,nota , fecha, tipo, clase_especial, id_usuario} = req.body;
 
-      const completada = false;
+      const estado = "Pendiente"; /* Completada / Pendiente / No Completada */
 
       const nuevaTarea = await db.create({
-        tarea_descripcion,
-        id_usuario,
-        completada,
+        titulo,
+        nota,
+        fecha,
+        tipo,
+        clase_especial,
+        estado,
+        id_usuario
+        /* id_tarea|id_usuario|titulo|nota|fecha|estado|tipo|clase_especial */
         /* Cosas necesarias:
           Titulo:
           Fecha:
           Nota:
           Tipo: Nota (Texto no tan extenso)/Items (Texto extenso que requiere más espacio)
           Id_Usuario:
-          Completada:
+          estado:
           Clase_especial: Importante/Asignado_a_mi
 
           Solo 2 Clase especiales ya que;
           En Planeado se mostrarán todas las tareas;
           En Mi día se mostraran todas las tareas del día;
-          En Tareas se mostrarán Todas las tareas y también las completadas;
+          En Tareas se mostrarán Todas las tareas y también las estados;
           
           En Importante se mostrarán las tareas destacadas;
           En Asignado a mí se mostrarán las tareas asignadas al usuario;
@@ -64,8 +69,12 @@ const tareas = {
       const tarea = await db.findByPk(tareaId);
 
       db.tarea.update({
-        tarea_descripcion: req.body.descripcion,
-        completada: req.body.completada
+        titulo: req.body.titulo,
+        nota: req.body.nota,
+        fecha: req.body.fecha,
+        tipo: req.body.tipo,
+        clase_especial: req.body.clase_especial,
+        estado: req.body.estado
       },{
         where: { id_tarea: tareaId }
       })

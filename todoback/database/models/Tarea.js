@@ -10,20 +10,33 @@ const Tarea = sequelize.define('Tarea', {
     },
     id_usuario: {
         type: DataTypes.INTEGER,
+        allowNull: false,
+        references: {
+            model: 'usuarios',
+            key: 'id'
+        }
     },
-    tarea_descripcion: {
+    titulo: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    nota: {
         type: DataTypes.TEXT,
     },
-    completada: {
-        type: DataTypes.BOOLEAN
-    }
+    fecha: {
+        type: DataTypes.DATE,
+    },
+    tipo: {
+        type: DataTypes.STRING,
+    },
+    clase_especial: {
+        type: DataTypes.STRING,
+    },
+    estado: {
+        type: DataTypes.STRING,
+        allowNull: false,
+    },
 },{
-    indexes: [
-            {
-                unique: false,
-                fields: ['id_usuario'],
-            }
-    ],
     tableName: 'tareas',
     timestamps: false
 });
