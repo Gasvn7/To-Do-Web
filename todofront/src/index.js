@@ -1,13 +1,21 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import MiDia from "./components/MiDia";
+import ErrorPage from './components/ErrorPage';
+
+const router = createBrowserRouter([{
+  path: '/',
+  element: <MiDia />,
+  errorElement: <ErrorPage />
+}]);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App />
+    <RouterProvider router={router}/>
   </React.StrictMode>
 );
 

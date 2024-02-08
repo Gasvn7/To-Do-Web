@@ -37,24 +37,6 @@ const tareas = {
         estado,
         id_usuario
         /* id_tarea|id_usuario|titulo|nota|fecha|estado|tipo|clase_especial */
-        /* Cosas necesarias:
-          Titulo:
-          Fecha:
-          Nota:
-          Tipo: Nota (Texto no tan extenso)/Items (Texto extenso que requiere más espacio)
-          Id_Usuario:
-          estado:
-          Clase_especial: Importante/Asignado_a_mi
-
-          Solo 2 Clase especiales ya que;
-          En Planeado se mostrarán todas las tareas;
-          En Mi día se mostraran todas las tareas del día;
-          En Tareas se mostrarán Todas las tareas y también las estados;
-          
-          En Importante se mostrarán las tareas destacadas;
-          En Asignado a mí se mostrarán las tareas asignadas al usuario;
-
-        */
       })
       
       res.json({ nuevaTarea })
