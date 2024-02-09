@@ -18,12 +18,16 @@ html, body, #root, .App {
   /* FUENTE */
   font-family: 'Sono', monospace;
 
-  background: #0d1b2a;
   background: linear-gradient(90deg,#0d1b2a 0%, #1b263b 40%);
   background: -webkit-linear-gradient(90deg,#0d1b2a 0%, #1b263b 40%);
   background: -moz-linear-gradient(90deg,#0d1b2a 0%, #1b263b 40%);
+
   display: flex;
   height: 100%;
+}
+/* LOGIN */
+.Login{
+  flex-direction: column;
 }
 /* SIDEBAR */
 .SideBar{

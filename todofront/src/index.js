@@ -5,18 +5,23 @@ import reportWebVitals from './reportWebVitals';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import MiDia from "./components/MiDia";
 import ErrorPage from './components/ErrorPage';
+import Login from './components/Login';
 
-const router = createBrowserRouter([{
-  path: '/',
-  element: <MiDia />,
-  errorElement: <ErrorPage />
-}]);
+const router = createBrowserRouter([
+  {
+    path: '/',
+    element: <Login />,
+    errorElement: <ErrorPage />
+  },{
+    path: '/login',
+    element: <MiDia />,
+    errorElement: <ErrorPage />
+  }
+]);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <React.StrictMode>
     <RouterProvider router={router}/>
-  </React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function
