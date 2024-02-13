@@ -1,19 +1,45 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { Navigate } from 'react-router-dom';
 
 function SideBar() {
+  const [showMenu, setShowMenu] = useState(false);
+
+  const userRegistered = JSON.parse(sessionStorage.getItem('user'))
+
+  const LogOut = () => {
+    sessionStorage.removeItem('user');
+    setShowMenu(false)
+  }
+  
+  if(!sessionStorage.getItem('user')){
+    return <Navigate to="/login"/>;
+  }
+  
+  const toggleMenu = () => {
+    setShowMenu(!showMenu);
+  };
+  const renderMenu = () => {
+    if (userRegistered) {
+      return (
+        <div className='DropdownMenu'>
+          <button className='' onClick={LogOut}>Cerrar sesión</button>
+          <button onClick={()=>setShowMenu(false)}>Cerrar ventana</button>
+        </div>
+      );
+    }
+    return null;
+  }
+
   return (
     <div className='SideBar'>
-      <a href='/'>
-        <div className='ContainerSideBar Gmail'>
-          {/* un icono */}
-          <img src='imagen del gmail' alt='Icono de Gmail' />
-          {/* Un div para acomodar el nombre y el email */}
-          <div className='ContainerGmail'>
-            <p>Nombre Persona</p>
-            <p>emailpersonal@gmail.com</p>
-          </div>
+      <div className='ContainerSideBar Gmail' onClick={toggleMenu}>
+        <img src={userRegistered.imagen} alt={userRegistered.imagen} />
+        <div className='ContainerGmail'>
+          <p>{userRegistered.nombre} {userRegistered.apellido}</p>
+          <p>{userRegistered.correo}</p>
         </div>
-      </a>
+      </div>
+      {showMenu && renderMenu()}
       <a href='/'>
         <div className='ContainerSideBar'>
             <div className='InnerContainer'>

@@ -10,11 +10,11 @@ import Login from './components/Login';
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <Login />,
+    element: <MiDia />,
     errorElement: <ErrorPage />
   },{
     path: '/login',
-    element: <MiDia />,
+    element: <Login />,
     errorElement: <ErrorPage />
   }
 ]);

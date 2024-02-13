@@ -14,9 +14,16 @@ const Usuario = sequelize.define('Usuario', {
     correo: {
         type: DataTypes.STRING,
     },
-    contrasena: {
+    apellido: {
         type: DataTypes.STRING,
-    }
+    },
+    imagen: {
+        type: DataTypes.STRING,
+    },
+    registro: {
+        type: DataTypes.STRING,
+    },
+
 },{
     timestamps: false
 });

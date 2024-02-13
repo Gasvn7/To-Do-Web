@@ -1,5 +1,6 @@
 var createError = require('http-errors');
 var express = require('express');
+var cors = require('cors');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
@@ -8,6 +9,14 @@ var app = express();
 
 // view engine setup
 app.set('view engine', 'ejs');
+
+
+const corsOptions ={
+  origin:'http://localhost:3000', 
+  credentials:true, //access-control-allow-credentials:true
+  optionSuccessStatus:200
+}
+app.use(cors(corsOptions));
 
 app.use(logger('dev'));
 app.use(express.json());

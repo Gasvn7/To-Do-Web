@@ -12,9 +12,18 @@ const usuarios = {
   },
   usuario: async(req,res)=>{
     try {
-      const usuarioId = req.params.id;
-      const usuario = await db.findByPk(usuarioId);
+      const { email, registro } = req.params;
 
+      const usuario = await db.findOne({
+        where: {
+          correo: email,
+          registro: registro
+        }
+      })
+
+      if(!usuario){
+        return res.status(404).json({mensaje: 'Usuario no encontrado'})
+      }
       res.json({ usuario })
     } catch (error) {
       console.error('Error al obtener el usuario:', error);
@@ -23,12 +32,14 @@ const usuarios = {
   },
   crear: async(req,res)=>{
     try {
-      const { nombre, correo, contrasena } = req.body;
+      const { nombre, apellido, imagen, correo, registro } = req.body;
 
       const nuevoUsuario = await db.create({
         nombre,
+        apellido,
+        imagen,
         correo,
-        contrasena
+        registro
       })
 
       res.json({ nuevoUsuario })

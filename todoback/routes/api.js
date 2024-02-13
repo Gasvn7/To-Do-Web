@@ -11,7 +11,7 @@ router.put('/tareas/actualizar/:id', tareas.actualizar);
 router.delete('/tareas/destruir/:id', tareas.eliminar);
 
 router.get('/usuarios', usuarios.lista);
-router.get('/usuarios/:id', usuarios.usuario);
+router.get('/usuarios/email/:email/registro/:registro', usuarios.usuario);
 router.post('/usuarios', usuarios.crear)
 
 module.exports = router;

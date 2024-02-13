@@ -25,10 +25,82 @@ html, body, #root, .App {
   display: flex;
   height: 100%;
 }
+
+
 /* LOGIN */
 .Login{
+  justify-content: center;
+  align-items: center;
   flex-direction: column;
 }
+.LoginForm{
+  color: var(--color-5);
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  flex-direction: column;
+}
+.LoginForm.Container{
+  background: #415a7796;
+  border-radius: 25px;
+  width: 30%;
+  height: 50%;
+}
+.LoginForm.Buttons{
+  height: 50%;
+}
+/* Estilos del botón de Google Login */
+.github-login-button {
+  width: 222px;
+  height: 40px;
+  border-radius: 5px;
+  border: 1px solid grey;
+  color: #3c4043;
+  -webkit-flex-grow: 1;
+  flex-grow: 1;
+  font-family: "Google Sans",arial,sans-serif;
+  font-weight: 500;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  vertical-align: top;
+
+  -webkit-border-radius: 4px;
+  border-radius: 4px;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  -webkit-transition: background-color .218s,border-color .218s;
+  transition: background-color .218s,border-color .218s;
+  background-color: #fff;
+  background-image: none;
+  border: 1px solid #dadce0;
+  color: #3c4043;
+  cursor: pointer;
+  font-family: "Google Sans",arial,sans-serif;
+  font-size: 14px;
+  max-height: 40px;
+  letter-spacing: 0.25px;
+  outline: none;
+  overflow: hidden;
+  padding: 0 12px;
+  position: relative;
+  text-align: center;
+  vertical-align: middle;
+  white-space: nowrap;
+
+
+  display: flex;
+  align-items: center;
+
+  padding: 12px;
+}
+.github-login-button svg{
+  height: 18;
+  margin-right: 8px;
+  min-width: 18;
+  width: 18px;
+}
+
+
 /* SIDEBAR */
 .SideBar{
   padding: 0 10px;
@@ -47,12 +119,14 @@ html, body, #root, .App {
 }
 /* Container Gmail */
 .SideBar .Gmail{
+  color:var(--color-4);
   justify-content: flex-start;
 }
 .SideBar .Gmail img{
   width: 35px;
   height: 35px;
-  padding-right: 15px;
+  margin-right: 15px;
+  border-radius: 25px;
 }
 /* Containers Normales */
 .SideBar .ContainerSideBar .InnerContainer{
@@ -62,6 +136,15 @@ html, body, #root, .App {
 .SideBar .ContainerSideBar .InnerContainer svg{
   margin-right: 10px;
 }
+.DropdownMenu{
+  width: 100%;
+  background-color: var(--color-1);
+}
+.DropdownMenu button{
+  background-color: var(--color-2);
+}
+
+
 /* CONTAINER DE TASKS */
 .TaskContainer{
   width: 80%;
