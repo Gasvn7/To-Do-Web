@@ -24,18 +24,16 @@ const tareas = {
   },
   crear: async (req,res)=>{
     try {
-      const {titulo ,nota , fecha, tipo, clase_especial, id_usuario} = req.body;
-
-      const estado = "Pendiente"; /* Completada / Pendiente / No Completada */
+      const {titulo, nota, fecha, tipo, clase_especial, id_usuario, estado} = req.body;
 
       const nuevaTarea = await db.create({
+        id_usuario,
         titulo,
         nota,
         fecha,
         tipo,
         clase_especial,
         estado,
-        id_usuario
         /* id_tarea|id_usuario|titulo|nota|fecha|estado|tipo|clase_especial */
       })
       

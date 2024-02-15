@@ -58,7 +58,7 @@ function Login() {
             />
           </GoogleOAuthProvider>
           
-          {redirectGoogle && <Navigate to="/" />}
+          {redirectGoogle && <Navigate to="/miDia" />}
         </div>
       </div>
       

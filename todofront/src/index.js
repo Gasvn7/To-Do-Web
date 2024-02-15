@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { createBrowserRouter, RouterProvider, Navigate } from 'react-router-dom';
 import MiDia from "./components/MiDia";
 import ErrorPage from './components/ErrorPage';
 import Login from './components/Login';
@@ -10,6 +10,11 @@ import Login from './components/Login';
 const router = createBrowserRouter([
   {
     path: '/',
+    element: <Navigate to="/miDia" replace />,
+    errorElement: <ErrorPage />
+  },
+  {
+    path: '/miDia',
     element: <MiDia />,
     errorElement: <ErrorPage />
   },{
