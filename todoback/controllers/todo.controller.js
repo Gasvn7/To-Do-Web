@@ -1,19 +1,29 @@
-const db = require('../database/models/Tarea');
+const db = require('../database/models')
+const Tarea = db.Tarea;
+const { Sequelize, DataTypes, QueryTypes } = require('sequelize');
+const moment = require('moment-timezone');
+
 
 const tareas = {
-  tareas: async (req, res) => {
+  getAllToDo: async (req, res) => {
     try {
-      const tareas = await db.findAll();
+      const uid = req.params.id;
+      const tareas = await Tarea.findAll({
+        where: {
+          id_usuario: uid
+        }
+      });
+      
       res.json({ tareas });
     } catch (error) {
       console.error('Error al obtener las tareas:', error);
       res.status(500).json({ error: 'Error interno del servidor' });
     }
   },
-  tarea: async (req,res)=>{
+  getToDo: async (req,res)=>{
     try {
       const tareaId = req.params.id;
-      const tarea = await db.findByPk(tareaId);
+      const tarea = await Tarea.findByPk(tareaId);
       
       res.json({ tarea });
     } catch (error) {
@@ -22,15 +32,122 @@ const tareas = {
       res.status(500).json({ error: 'Error interno del servidor' })
     }
   },
-  crear: async (req,res)=>{
+  getToday: async (req, res) => {
+    try {
+      const uid = req.params.id;
+      const today = new Date();
+      const year = today.getFullYear();
+      const month = today.getMonth() + 1;
+      const day = today.getDate();
+  
+      const formattedDate = `${year}-${month < 10 ? '0' + month : month}-${day < 10 ? '0' + day : day}`;
+  
+      const plannedTasksToday = await Tarea.sequelize.query(
+        `SELECT * FROM tareas WHERE fecha = :today AND id_usuario = :uid`,
+        {
+          replacements: {
+            today: formattedDate,
+            uid: uid
+          },
+          type: Tarea.sequelize.QueryTypes.SELECT
+        }
+      );
+  
+      if (plannedTasksToday.length !== 0) {
+        res.json(plannedTasksToday);
+      } else {
+        res.json({ message: 'No hay tareas planeadas para hoy.' });
+      }
+    } catch (error) {
+      console.error('Error al obtener las tareas:', error);
+      res.status(500).json({ error: 'Error interno del servidor' });
+    }
+  },
+  getPlanned: async (req, res) => {
+    try {
+      const uid = req.params.id;
+      const today = new Date();
+      const year = today.getFullYear();
+      const month = today.getMonth() + 1;
+      const day = today.getDate();
+  
+      const formattedDate = `${year}-${month < 10 ? '0' + month : month}-${day < 10 ? '0' + day : day}`;
+  
+      const plannedTasks = await Tarea.sequelize.query(`
+      SELECT * FROM tareas WHERE fecha >= :today AND id_usuario = :uid`,
+       {
+        replacements: {
+          today: formattedDate,
+          uid: uid
+        },
+        type: Tarea.sequelize.QueryTypes.SELECT
+      });
+  
+      if (plannedTasks.length !== 0) {
+        res.json(plannedTasks);
+      } else {
+        res.json({ message: 'No hay tareas planeadas a futuro.' });
+      }
+    } catch (error) {
+      console.error('Error al obtener las tareas:', error);
+      res.status(500).json({ error: 'Error interno del servidor' });
+    }
+  },
+  getImportant: async (req,res) => {
+    try {
+      const uid = req.params.id;
+      const clase_especial = 'Importante'
+      const importantTasks = await Tarea.findAll({
+        where: {
+          clase_especial: clase_especial,
+          id_usuario: uid
+        }
+      })
+
+      if (importantTasks.length != 0) {
+        res.json(importantTasks)
+      } else {
+        res.json({ message: 'No destacaste ninguna tarea sobre las demás.'});
+      }
+    } catch (error) {
+      console.error('Error al obtener las tareas:', error);
+      res.status(500).json({ error: 'Error interno del servidor' });
+    }
+
+  },
+  getAsigned: async (req,res) => {
+    try {
+      const uid = req.params.id;
+      const clase_especial = 'Asignado'
+      const asignedTasks = await Tarea.findAll({
+        where: {
+          clase_especial: clase_especial,
+          id_usuario: uid
+        }
+      })
+      
+      if (asignedTasks != 0) {
+        res.json(asignedTasks)
+      } else {
+        res.json({ message: 'No tienes ninguna tarea asignada.'})
+      }
+    } catch (error) {
+      console.error('Error al obtener las tareas:', error);
+      res.status(500).json({ error: 'Error interno del servidor' });
+    }
+  },
+  
+  create: async (req,res)=>{
     try {
       const {titulo, nota, fecha, tipo, clase_especial, id_usuario, estado} = req.body;
 
-      const nuevaTarea = await db.create({
+      const formattedDate = moment(fecha, 'DD/MM/YYYY').format('YYYY-MM-DD');
+
+      const nuevaTarea = await Tarea.create({
         id_usuario,
         titulo,
         nota,
-        fecha,
+        fecha: formattedDate,
         tipo,
         clase_especial,
         estado,
@@ -43,12 +160,12 @@ const tareas = {
       res.status(500).json({ error: 'Error interno del servidor' })
     }
   },
-  actualizar: async (req,res)=>{
+  update: async (req,res)=>{
     try {
       const tareaId = req.params.id;
-      const tarea = await db.findByPk(tareaId);
+      const tarea = await Tarea.findByPk(tareaId);
 
-      db.tarea.update({
+      Tarea.tarea.update({
         titulo: req.body.titulo,
         nota: req.body.nota,
         fecha: req.body.fecha,
@@ -66,10 +183,10 @@ const tareas = {
       res.status(500).json({ error: 'Error interno del servidor' })
     }
   },
-  eliminar: async (req,res) =>{
+  delete: async (req,res) =>{
     try {
       const tareaId = req.params.id;
-      await db.destroy({ where: {id: tareaId }, force: true })
+      await Tarea.destroy({ where: {id: tareaId }, force: true })
 
       return res.status(204).json({ message: `Se eliminó la tarea ${tareaId} con éxito`})
     } catch (error) {

@@ -5,19 +5,19 @@ import axios from 'axios';
 
 function MiDia() {
   const userRegistered = JSON.parse(sessionStorage.getItem('user'))
-  const [plannedTasks, setplannedTasks] = useState([]);
+  const [asignedTasks, setAsignedTasks] = useState([]);
 
-  const title = 'Planeado'
+  const title = 'Asignado a Mí'
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const uid = userRegistered.id;
-        const responsePlannedTasks = await axios.get(`http://localhost:3050/tareasPlaneadas/${uid}`);
+        const responseAsignedTasks = await axios.get(`http://localhost:3050/tareasAsignadas/${uid}`);
 
-        !responsePlannedTasks.data.message ? setplannedTasks(
-          responsePlannedTasks.data.length !== undefined && responsePlannedTasks.data.length === 1 ? responsePlannedTasks.data[0] : responsePlannedTasks.data
-        ) : setplannedTasks(responsePlannedTasks.data);
+        !responseAsignedTasks.data.message ? setAsignedTasks(
+          responseAsignedTasks.data.length !== undefined && responseAsignedTasks.data.length === 1 ? responseAsignedTasks.data[0] : responseAsignedTasks.data
+        ) : setAsignedTasks(responseAsignedTasks.data);
         
       } catch (error) {
         console.error('Error al obtener las tareas:', error);
@@ -30,7 +30,7 @@ function MiDia() {
   return (
     <div className='Body'>
       <SideBar/>
-      <Tasks title={title} tasks={plannedTasks}/>
+      <Tasks title={title} tasks={asignedTasks}/>
     </div>
   )
 }

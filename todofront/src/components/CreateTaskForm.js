@@ -14,13 +14,13 @@ const CreateTaskForm = (props) => {
       const day = fechaActual.getDate();
 
       setFecha(`${year}-${month < 10 ? '0' + month : month}-${day < 10 ? '0' + day : day}`);
+      if(nota.length >= 50){
     }
-
-    if(nota.length >= 50){
       setTipo('Extenso')
     }
   }, [props.title, nota]);
 
+  console.log(fecha)
   const userData = JSON.parse(sessionStorage.getItem('user'))
   const userEmail = userData.correo;
   const userRegistro = userData.registro;
@@ -59,7 +59,7 @@ const CreateTaskForm = (props) => {
         </label>
         <label>
           Nota:
-          <textarea value={nota} onChange={(e) => setNota(e.target.value)} required/>
+          <textarea rows={5} value={nota} onChange={(e) => setNota(e.target.value)} required/>
         </label>
         <label>
           Fecha:

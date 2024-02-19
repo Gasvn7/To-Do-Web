@@ -4,6 +4,10 @@ import './index.css';
 import reportWebVitals from './reportWebVitals';
 import { createBrowserRouter, RouterProvider, Navigate } from 'react-router-dom';
 import MiDia from "./components/MiDia";
+import Planeado from "./components/Planeado";
+import Importante from "./components/Importante";
+import Asignado from "./components/Asignado";
+import Tareas from "./components/Tareas";
 import ErrorPage from './components/ErrorPage';
 import Login from './components/Login';
 
@@ -14,12 +18,33 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />
   },
   {
+  path: '/login',
+  element: <Login />,
+  errorElement: <ErrorPage />
+  },
+  {
     path: '/miDia',
     element: <MiDia />,
     errorElement: <ErrorPage />
-  },{
-    path: '/login',
-    element: <Login />,
+  },
+  {
+    path: '/planeado',
+    element: <Planeado />,
+    errorElement: <ErrorPage />
+  }
+  ,{
+    path: '/importante',
+    element: <Importante />,
+    errorElement: <ErrorPage />
+  }
+  ,{
+    path: '/asignado',
+    element: <Asignado />,
+    errorElement: <ErrorPage />
+  }
+  ,{
+    path: '/tareas',
+    element: <Tareas />,
     errorElement: <ErrorPage />
   }
 ]);

@@ -4,11 +4,15 @@ const router = express.Router();
 const usuarios = require('../controllers/usuarios.controller');
 const tareas = require('../controllers/todo.controller');
 
-router.get('/tareas', tareas.tareas);
-router.get('/tareas/:id', tareas.tarea);
-router.post('/tareas', tareas.crear);
-router.put('/tareas/actualizar/:id', tareas.actualizar);
-router.delete('/tareas/destruir/:id', tareas.eliminar);
+router.get('/tareas/:id', tareas.getAllToDo);
+router.get('/tareasMiDia/:id', tareas.getToday);
+router.get('/tareasPlaneadas/:id', tareas.getPlanned);
+router.get('/tareasDestacadas/:id', tareas.getImportant);
+router.get('/tareasAsignadas/:id', tareas.getAsigned);
+
+router.post('/tareas', tareas.create);
+router.put('/tareas/actualizar/:id', tareas.update);
+router.delete('/tareas/destruir/:id', tareas.delete);
 
 router.get('/usuarios', usuarios.lista);
 router.get('/usuarios/email/:email/registro/:registro', usuarios.usuario);

@@ -1,10 +1,43 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Navigate } from 'react-router-dom';
+import axios from 'axios';
 
 function SideBar() {
   const [showMenu, setShowMenu] = useState(false);
+  /* Llamando a las APIs para recopilar los datos de las tareas (La cantidad de tareas) */
+  const [allTasks, setAllTasks] = useState([]);
+  const [todayTasks, setTodayTasks] = useState([]);
+  const [plannedTasks, setPlannedTasks] = useState([]);
+  const [importantTasks, setImportantTasks] = useState([]);
+  const [asignedTasks, setAsignedTasks] = useState([]); 
 
+  
   const userRegistered = JSON.parse(sessionStorage.getItem('user'))
+  useEffect(()=>{
+   const fetchData = async () => {
+    try {
+      const uid = userRegistered.id
+      const responseAllTasks = await axios.get(`http://localhost:3050/tareas/${uid}`);
+      const responseTodayTasks = await axios.get(`http://localhost:3050/tareasMiDia/${uid}`);
+      const responsePlannedTasks = await axios.get(`http://localhost:3050/tareasPlaneadas/${uid}`)
+      const responseImportantTasks = await axios.get(`http://localhost:3050/tareasDestacadas/${uid}`);
+      const responseAsignedTasks = await axios.get(`http://localhost:3050/tareasAsignadas/${uid}`);
+
+      !responseAllTasks.data.message ? setAllTasks(responseTodayTasks.data.length || responseTodayTasks.data.tareas.length) : setAllTasks(0)
+      !responseTodayTasks.data.message ? setTodayTasks(responseTodayTasks.data.length || responseTodayTasks.data.tareas.length) : setTodayTasks(0)
+      !responseImportantTasks.data.message ? setImportantTasks(responseTodayTasks.data.length || responseTodayTasks.data.tareas.length) : setImportantTasks(0)
+      !responsePlannedTasks.data.message ? setPlannedTasks(responseTodayTasks.data.length || responseTodayTasks.data.tareas.length) : setPlannedTasks(0)
+      !responseAsignedTasks.data.message ? setAsignedTasks(responseTodayTasks.data.length || responseTodayTasks.data.tareas.length) : setAsignedTasks(0)
+
+
+    } catch (error) {
+      console.error('Error al obtener las tareas:', error); 
+    }
+   }  
+
+   fetchData()
+
+  },[userRegistered])
 
   const LogOut = () => {
     sessionStorage.removeItem('user');
@@ -18,12 +51,13 @@ function SideBar() {
   const toggleMenu = () => {
     setShowMenu(!showMenu);
   };
+
   const renderMenu = () => {
     if (userRegistered) {
       return (
         <div className='DropdownMenu'>
-          <button className='' onClick={LogOut}>Cerrar sesión</button>
-          <button onClick={()=>setShowMenu(false)}>Cerrar ventana</button>
+          <button className='DropdownMenuButtons' onClick={()=>setShowMenu(false)}>Cerrar ventana</button>
+          <button className='DropdownMenuButtons' onClick={LogOut}>Cerrar sesión</button>
         </div>
       );
     }
@@ -40,7 +74,7 @@ function SideBar() {
         </div>
       </div>
       {showMenu && renderMenu()}
-      <a href='/'>
+      <a href='/miDia'>
         <div className='ContainerSideBar'>
             <div className='InnerContainer'>
               <svg style={{fill: '#6d737f'}} xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24">
@@ -55,10 +89,10 @@ function SideBar() {
               <p>Mi día</p>
             </div>
           {/* Número X de tareas */}
-          <p>X</p>
+          {todayTasks > 0 ? <p>{todayTasks}</p> : <></>}
         </div>
       </a>
-      <a href='/'>
+      <a href='/importante'>
         <div className='ContainerSideBar'>
           <div className='InnerContainer'>
             <svg style={{fill: '#f1bfcb'}} xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24">
@@ -68,10 +102,10 @@ function SideBar() {
             <p>Importante</p>
           </div>
           {/* Número X de tareas */}
-          <p>X</p>
+          {importantTasks > 0 ? <p>{importantTasks}</p> : <></>}
         </div>
       </a>
-      <a href='/'>
+      <a href='/planeado'>
         <div className='ContainerSideBar'>
           <div className='InnerContainer'>
             <svg style={{fill: '#8dcfc5'}} xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24">
@@ -82,10 +116,10 @@ function SideBar() {
             <p>Planeado</p>
           </div>
           {/* Número X de tareas */}
-          <p>X</p>
+          {plannedTasks > 0 ? <p>{plannedTasks}</p> : <></>}
         </div>
       </a>
-      <a href='/'>
+      <a href='/asignado'>
         <div className='ContainerSideBar'>
           <div className='InnerContainer'>
             <svg style={{fill: '#b0dfcb'}} xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24">
@@ -96,10 +130,10 @@ function SideBar() {
             <p>Asignado a mí</p>
           </div>
           {/* Número X de tareas */}
-          <p>X</p>
+          {asignedTasks > 0 ? <p>{asignedTasks}</p> : <></>}
         </div>
       </a>
-      <a href='/'>
+      <a href='/tareas'>
         <div className='ContainerSideBar'>
           <div className='InnerContainer'>
           <svg style={{fill: '#7983ca'}} xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24">
@@ -110,7 +144,7 @@ function SideBar() {
             <p>Tareas</p>
           </div>
           {/* Número X de tareas */}
-          <p>X</p>
+          {allTasks > 0 ? <p>{allTasks}</p> : <></>}
         </div>
       </a>
     </div>
