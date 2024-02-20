@@ -25,8 +25,7 @@ function MiDia() {
 
         !responseTodayTasks.data.message ? setTodayTasks(
           responseTodayTasks.data.length !== undefined && responseTodayTasks.data.length === 1 ? responseTodayTasks.data[0] : responseTodayTasks.data.tareas
-        ) : setTodayTasks(responseTodayTasks.data);
-
+        ) : setTodayTasks(responseTodayTasks.data.message);
       } catch (error) {
         console.error('Error al obtener las tareas:', error);
       }

@@ -3,7 +3,7 @@ import SideBar from './SideBar';
 import Tasks from './Tasks';
 import axios from 'axios';
 
-function MiDia() {
+function Importante() {
   const userRegistered = JSON.parse(sessionStorage.getItem('user'))
   const [importantTasks, setImportantTasks] = useState([]);
 
@@ -17,8 +17,7 @@ function MiDia() {
 
         !responseImportantTasks.data.message ? setImportantTasks(
           responseImportantTasks.data.length !== undefined && responseImportantTasks.data.length === 1 ? responseImportantTasks.data[0] : responseImportantTasks.data
-        ) : setImportantTasks(responseImportantTasks.data);
-        
+        ) : setImportantTasks(responseImportantTasks.data.message);
       } catch (error) {
         console.error('Error al obtener las tareas:', error);
       }
@@ -35,4 +34,4 @@ function MiDia() {
   )
 }
 
-export default MiDia
+export default Importante

@@ -23,12 +23,31 @@ function SideBar() {
       const responseImportantTasks = await axios.get(`http://localhost:3050/tareasDestacadas/${uid}`);
       const responseAsignedTasks = await axios.get(`http://localhost:3050/tareasAsignadas/${uid}`);
 
-      !responseAllTasks.data.message ? setAllTasks(responseTodayTasks.data.length || responseTodayTasks.data.tareas.length) : setAllTasks(0)
-      !responseTodayTasks.data.message ? setTodayTasks(responseTodayTasks.data.length || responseTodayTasks.data.tareas.length) : setTodayTasks(0)
-      !responseImportantTasks.data.message ? setImportantTasks(responseTodayTasks.data.length || responseTodayTasks.data.tareas.length) : setImportantTasks(0)
-      !responsePlannedTasks.data.message ? setPlannedTasks(responseTodayTasks.data.length || responseTodayTasks.data.tareas.length) : setPlannedTasks(0)
-      !responseAsignedTasks.data.message ? setAsignedTasks(responseTodayTasks.data.length || responseTodayTasks.data.tareas.length) : setAsignedTasks(0)
+      !responseAllTasks.data.message ? setAllTasks(
+        responseAllTasks.data.length !== undefined && responseAllTasks.data.length === 1 ? responseAllTasks.data[0].length : 
+        responseAllTasks.data.length === undefined ? responseAllTasks.data.tareas.length : responseAllTasks.data.length
+      ) : setAllTasks(0);
 
+      !responseTodayTasks.data.message ? setTodayTasks(
+        responseTodayTasks.data.length !== undefined && responseTodayTasks.data.length === 1 ? 1 : 
+        responseTodayTasks.data.length === undefined ? responseTodayTasks.data.tareas.length : responseTodayTasks.data.length
+      ) : setTodayTasks(0);
+      console.log(todayTasks)
+      
+      !responseImportantTasks.data.message ? setImportantTasks(
+        responseImportantTasks.data.length !== undefined && responseImportantTasks.data.length === 1 ? responseImportantTasks.data[0].length : 
+        responseImportantTasks.data.length === undefined ? responseImportantTasks.data.tareas.length : responseImportantTasks.data.length
+      ) : setImportantTasks(0);
+
+      !responsePlannedTasks.data.message ? setPlannedTasks(
+        responsePlannedTasks.data.length !== undefined && responsePlannedTasks.data.length === 1 ? responsePlannedTasks.data[0].length : 
+        responsePlannedTasks.data.length === undefined ? responsePlannedTasks.data.tareas.length : responsePlannedTasks.data.length
+      ) : setPlannedTasks(0);
+
+      !responseAsignedTasks.data.message ? setAsignedTasks(
+        responseAsignedTasks.data.length !== undefined && responseAsignedTasks.data.length === 1 ? responseAsignedTasks.data[0].length : 
+        responseAsignedTasks.data.length === undefined ? responseAsignedTasks.data.tareas.length : responseAsignedTasks.data.length
+      ) : setAsignedTasks(0);
 
     } catch (error) {
       console.error('Error al obtener las tareas:', error); 
@@ -37,7 +56,7 @@ function SideBar() {
 
    fetchData()
 
-  },[userRegistered])
+  },[])
 
   const LogOut = () => {
     sessionStorage.removeItem('user');

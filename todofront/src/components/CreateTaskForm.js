@@ -5,6 +5,7 @@ const CreateTaskForm = (props) => {
   const [nota, setNota] = useState('');
   const [fecha, setFecha] = useState('');
   const [tipo, setTipo] = useState('Corto');
+  const [clase_especial, setClaseEspecial] = useState('Ninguna');
 
   useEffect(() => {
     if (props.title === 'Mi día') {
@@ -14,13 +15,18 @@ const CreateTaskForm = (props) => {
       const day = fechaActual.getDate();
 
       setFecha(`${year}-${month < 10 ? '0' + month : month}-${day < 10 ? '0' + day : day}`);
-      if(nota.length >= 50){
     }
+    if (props.title === 'Importante') {
+      setClaseEspecial('Importante')
+    }
+    if (props.title === 'Asignado a Mí') {
+      setClaseEspecial('Asignado')
+    }
+    if(nota.length >= 50){
       setTipo('Extenso')
     }
   }, [props.title, nota]);
 
-  console.log(fecha)
   const userData = JSON.parse(sessionStorage.getItem('user'))
   const userEmail = userData.correo;
   const userRegistro = userData.registro;
@@ -38,7 +44,7 @@ const CreateTaskForm = (props) => {
         nota,
         fecha,
         tipo,
-        clase_especial: 'Ninguna',
+        clase_especial,
         estado: 'Pendiente'
       };
 

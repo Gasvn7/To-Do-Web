@@ -3,9 +3,9 @@ import SideBar from './SideBar';
 import Tasks from './Tasks';
 import axios from 'axios';
 
-function MiDia() {
+function Planeado() {
   const userRegistered = JSON.parse(sessionStorage.getItem('user'))
-  const [plannedTasks, setplannedTasks] = useState([]);
+  const [plannedTasks, setPlannedTasks] = useState([]);
 
   const title = 'Planeado'
 
@@ -15,10 +15,9 @@ function MiDia() {
         const uid = userRegistered.id;
         const responsePlannedTasks = await axios.get(`http://localhost:3050/tareasPlaneadas/${uid}`);
 
-        !responsePlannedTasks.data.message ? setplannedTasks(
+        !responsePlannedTasks.data.message ? setPlannedTasks(
           responsePlannedTasks.data.length !== undefined && responsePlannedTasks.data.length === 1 ? responsePlannedTasks.data[0] : responsePlannedTasks.data
-        ) : setplannedTasks(responsePlannedTasks.data);
-        
+        ) : setPlannedTasks(responsePlannedTasks.data.message);
       } catch (error) {
         console.error('Error al obtener las tareas:', error);
       }
@@ -35,4 +34,4 @@ function MiDia() {
   )
 }
 
-export default MiDia
+export default Planeado

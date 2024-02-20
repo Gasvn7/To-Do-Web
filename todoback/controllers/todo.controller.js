@@ -141,13 +141,11 @@ const tareas = {
     try {
       const {titulo, nota, fecha, tipo, clase_especial, id_usuario, estado} = req.body;
 
-      const formattedDate = moment(fecha, 'DD/MM/YYYY').format('YYYY-MM-DD');
-
       const nuevaTarea = await Tarea.create({
         id_usuario,
         titulo,
         nota,
-        fecha: formattedDate,
+        fecha,
         tipo,
         clase_especial,
         estado,

@@ -3,7 +3,7 @@ import SideBar from './SideBar';
 import Tasks from './Tasks';
 import axios from 'axios';
 
-function MiDia() {
+function Tareas() {
   const userRegistered = JSON.parse(sessionStorage.getItem('user'))
   const [allTasks, setAllTasks] = useState([]);
 
@@ -16,9 +16,9 @@ function MiDia() {
         const responseAllTasks = await axios.get(`http://localhost:3050/tareas/${uid}`);
 
         !responseAllTasks.data.message ? setAllTasks(
-          responseAllTasks.data.length !== undefined && responseAllTasks.data.length === 1 ? responseAllTasks.data[0] : responseAllTasks.data
-        ) : setAllTasks(responseAllTasks.data);
-        
+          responseAllTasks.data.length !== undefined && responseAllTasks.data.length === 1 ? responseAllTasks.data[0] : 
+          responseAllTasks.data.length === undefined ? responseAllTasks.data.tareas : responseAllTasks.data
+        ) : setAllTasks(responseAllTasks.data.message);
       } catch (error) {
         console.error('Error al obtener las tareas:', error);
       }
@@ -27,7 +27,6 @@ function MiDia() {
     fetchData();
   }, []);
 
-  console.log(allTasks)
 
   return (
     <div className='Body'>
@@ -37,4 +36,4 @@ function MiDia() {
   )
 }
 
-export default MiDia
+export default Tareas
